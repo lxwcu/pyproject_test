@@ -198,44 +198,77 @@
 # calculate_score(handAcList,name)
 
 #exercise 6
-def dicAge(strAge):
-    dcag = {}
-    #split string into list
-    strList = strAge.split("\n")
+# def dicAge(strAge):
+#     dcag = {}
+#     #split string into list
+#     strList = strAge.split("\n")
+#
+#     #sort infromation list, remove null value and add useful information based on dictionary
+#
+#
+#     for item in strList:
+#         if item != '':
+#             item = item.strip()
+#             strSpList = item.split(": ")
+#
+#             dcag[strSpList[0]] = int(strSpList[1])
+#
+#     return  dcag
+#
+# def sortAge(dicAg,gw):
+#     upInx = []
+#     downInx = []
+#
+#     for name,age in dicAg.items():
+#         if age >= gw:upInx.append(name)
+#         else:downInx.append(name)
+#
+#     return upInx,downInx
+#
+# def culculateAge(filePath,ageGw):
+#     with open(filePath,"r",encoding="utf8") as infoList:
+#         ageTable = infoList.read()
+#         ageList = dicAge(ageTable)
+#         culResult = sortAge(ageList,ageGw)
+#     with open(filePath,"a",encoding="utf8")  as infoList:
+#         infoList.write(f"\n年龄大于{ageGw}的有：\n")
+#         for item in culResult[0]:
+#             infoList.write(item+"\n")
+#
+# filePth = "D:\\0013_a1.txt"
+# ageGw = 50
+# culculateAge(filePth,ageGw)
 
-    #sort infromation list, remove null value and add useful information based on dictionary
+#excercise 7
+# def judgepng(filePath):
+#     with open(filePath,'rb') as picture:
+#         titleCode = picture.read(30)
+#         print(titleCode)
+#
+# judgepng("C:\\Users\\william\\Pictures\\Saved Pictures\\02")
+
+#exercise 8
+import requests
+import re
+# def getStockPrice():
+#     stockInfo = requests.get("http://hq.sinajs.cn/list=sh601006")
+#     print(stockInfo.text)
+#
+# getStockPrice()import requests
+def getStockPrice(stockCode):
+    paraStock = {
+        "list": "stockCode"
+
+    }
+
+    stockInfo = requests.get("http://hq.sinajs.cn/",data=paraStock)
+    stockInfoTxt = stockInfo.text
+
+    regStock = re.compile(r'\=\"(.+?),([\d\.]+),([\d\.]+),',re.MULTILINE)
+    print(stockInfoTxt)
+    regAnResult = regStock.findall(stockInfoTxt)
+    return  regAnResult
 
 
-    for item in strList:
-        if item != '':
-            item = item.strip()
-            strSpList = item.split(": ")
-
-            dcag[strSpList[0]] = int(strSpList[1])
-
-    return  dcag
-
-def sortAge(dicAg,gw):
-    upInx = []
-    downInx = []
-
-    for name,age in dicAg.items():
-        if age >= gw:upInx.append(name)
-        else:downInx.append(name)
-
-    return upInx,downInx
-
-def culculateAge(filePath,ageGw):
-    with open(filePath,"r",encoding="utf8") as infoList:
-        ageTable = infoList.read()
-        ageList = dicAge(ageTable)
-        culResult = sortAge(ageList,ageGw)
-    with open(filePath,"a",encoding="utf8")  as infoList:
-        infoList.write(f"\n年龄大于{ageGw}的有：\n")
-        for item in culResult[0]:
-            infoList.write(item+"\n")
-
-filePth = "D:\\0013_a1.txt"
-ageGw = 50
-culculateAge(filePth,ageGw)
+print(getStockPrice('sh601006'))
 
